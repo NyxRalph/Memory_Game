@@ -3,7 +3,14 @@ const results = [];
 const choice = [];
 let moveCount = 0
 
+
+
+
+
 function generateRandomNumbers() {
+
+
+  
   const numbers = [
     { no: 1, id: 1 },
     { no: 2, id: 2 },
@@ -24,6 +31,23 @@ function generateRandomNumbers() {
     { no: 17, id: 17 },
     { no: 18, id: 18 },
   ];
+  const numberSmall = [
+    { no: 1, id: 1 },
+    { no: 2, id: 2 },
+    { no: 3, id: 3 },
+    { no: 4, id: 4 },
+    { no: 5, id: 5 },
+    { no: 6, id: 6 },
+    { no: 7, id: 7 },
+    { no: 8, id: 8 },
+    { no: 9, id: 9 },
+    { no: 10, id: 10 },
+    { no: 11, id: 11 },
+    { no: 12, id: 12 },
+    
+  ];
+
+  
 
   numbers.sort(compareFn);
 
@@ -38,6 +62,23 @@ function generateRandomNumbers() {
 }
 
 console.log(generateRandomNumbers());
+
+let ele = document.querySelector("#timer")
+
+
+function timeUp(){
+    let sec = 0
+    let min = 0
+    let timer = setInterval(() => {
+       seconds = sec % 60
+       minutes = Math.floor(min / 60)
+      ele.innerHTML = minutes + ':' + seconds
+    
+    min++
+    sec++ 
+    }, 1000)
+}
+timeUp()
 
 function text(user) {
   return `<div class="tile" id="${user.id}">
@@ -78,39 +119,5 @@ setTimeout(() => {
 }, 1000);
 
 
-let i=0,
-timer=setInterval(function time(){i++},1000);
-console.log(timer)
-
-time()
 
 
-
-
-
-        var minutesLabel = document.getElementById("minutes");
-        var secondsLabel = document.getElementById("seconds");
-        var totalSeconds = 0;
-        setInterval(setTime, 1000);
-
-        function setTime()
-        {
-            ++totalSeconds;
-            secondsLabel.innerHTML = pad(totalSeconds%60);
-            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
-        }
-        setTime()
-        function pad(val)
-        {
-            var valString = val + "";
-            if(valString.length < 2)
-            {
-                return "0" + valString;
-            }
-            else
-            {
-                return valString;
-            }
-        }
-
-       pad()
