@@ -1,0 +1,28 @@
+
+.tiles{
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+}
+.tile{
+    border: 1px solid lightgray;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    margin: 15px;
+    z-index: 2;
+}
+.moves{
+    width: 150px;
+    height: 30px;
+    border: 1px solid lightgray;
+}
+#seconds {
+    font-size: 5em;}
+  
+  #minutes {
+    font-size: 5em;
+  }
+  #colon {
+    font-size: 5em;
+  }
