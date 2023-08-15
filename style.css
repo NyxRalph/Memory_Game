@@ -4,13 +4,24 @@
     flex-wrap: wrap;
     width: 800px;
 }
+body{
+    height: 101vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .tile{
     border: 1px solid lightgray;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25px;
     margin: 15px;
-    z-index: 2;
+
 }
 .moves{
     width: 150px;
@@ -25,12 +36,51 @@
 }
 
 .menu__box{
-    height: 100px;
+    height: 400px;
     width: 300px;
     border: 3px solid gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 .gd_btn{
-    width: 50px;
+    width: 100px;
     height: 30px;
     border: 2px solid lightgray;
+    margin: 24px;
+    text-align: center;
+}
+.grid__size,
+.numOrsym
+{
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+}
+
+.gameBoard{
+    height: 350px;
+    width: 100vw;
+    display: none;
+    flex-direction: column;
+}
+.start__btn{
+    border: 1px solid black;
+    width: 100px;
+    height: 30px;
+    margin: 24px;
+    text-align: center;
+}
+.player{
+    display: flex
+}
+.tile__icon{
+    width: 22px;
+}
+.players{
+    margin: 14px;
+    padding: 14px;
+    border: 1px solid black;
 }
