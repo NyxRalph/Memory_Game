@@ -1,5 +1,5 @@
 const compareFn = () => 0.5 - Math.random();
-const tile = document.querySelectorAll(".tile");
+
 const results = [];
 const choice = [];
 let moveCount = 0;
@@ -13,6 +13,75 @@ const plys_1 = document.querySelector("#players__1");
 const plys_2 = document.querySelector("#players__2");
 const plys_3 = document.querySelector("#players__3");
 const plys_4 = document.querySelector("#players__4");
+
+const OBJ12 = [
+  { no: 1, id: 1, img: "./assets/icons/1.svg" },
+  { no: 2, id: 2, img: "./assets/icons/2.svg" },
+  { no: 3, id: 3, img: "./assets/icons/3.svg" },
+  { no: 4, id: 4, img: "./assets/icons/4.svg" },
+  { no: 5, id: 5, img: "./assets/icons/5.svg" },
+  { no: 6, id: 6, img: "./assets/icons/6.svg" },
+  { no: 7, id: 7, img: "./assets/icons/7.svg" },
+  { no: 8, id: 8, img: "./assets/icons/8.svg" },
+  { no: 9, id: 9, img: "./assets/icons/9.svg" },
+  { no: 10, id: 10, img: "./assets/icons/10.svg" },
+  { no: 11, id: 11, img: "./assets/icons/11.svg" },
+  { no: 12, id: 12, img: "./assets/icons/12.svg" },
+  { no: 13, id: 13, img: "./assets/icons/13.svg" },
+  { no: 14, id: 14, img: "./assets/icons/14.svg" },
+  { no: 15, id: 15, img: "./assets/icons/15.svg" },
+  { no: 16, id: 16, img: "./assets/icons/16.svg" },
+  { no: 17, id: 17, img: "./assets/icons/17.svg" },
+  { no: 18, id: 18, img: "./assets/icons/18.svg" },
+];
+
+const OBJ8 = [
+  { no: 1, id: 1, img: "./assets/icons/1.svg" },
+  { no: 2, id: 2, img: "./assets/icons/2.svg" },
+  { no: 3, id: 3, img: "./assets/icons/3.svg" },
+  { no: 4, id: 4, img: "./assets/icons/4.svg" },
+  { no: 5, id: 5, img: "./assets/icons/5.svg" },
+  { no: 6, id: 6, img: "./assets/icons/6.svg" },
+  { no: 7, id: 7, img: "./assets/icons/7.svg" },
+  { no: 8, id: 8, img: "./assets/icons/8.svg" },
+];
+
+function textIcon(user) {
+  return `<div class="tile" id="${user.id}" >
+  <img id="${user.no}" src="${user.img}" class="tile__icon" >
+    </div>`;
+}
+
+function text(user) {
+  return `<div class="tile" id="${user.id}">
+      ${user.no}
+      </div>`;
+}
+
+function gm__play(event) {
+  choice.push(event.target.id);
+  console.log(choice);
+  const tile_icon = document.querySelector(".tile__icon");
+  console.log(event)
+
+
+
+  // icon_visible.style.visibilty= "visible"
+
+
+  if (choice.length == 2) {
+    if (choice[0] == choice[1]) {
+      console.log("win");
+    } else if (choice[0] !== choice[1]) {
+      console.log("lose");
+    }
+    moveCount = moveCount + 1;
+    const moves = document.querySelector(" .moves");
+    moves.innerHTML = moveCount;
+    console.log(moveCount);
+    choice.length = 0;
+  }
+}
 
 menuBoard = [Num, Icon, gridFour, gridSix, plys_1, plys_2, plys_3, plys_4];
 
@@ -78,26 +147,7 @@ function startGame() {
 
   if (GNI == "NUM") {
     if (GSI == "SIX") {
-      const numbers = [
-        { no: 1, id: 1 },
-        { no: 2, id: 2 },
-        { no: 3, id: 3 },
-        { no: 4, id: 4 },
-        { no: 5, id: 5 },
-        { no: 6, id: 6 },
-        { no: 7, id: 7 },
-        { no: 8, id: 8 },
-        { no: 9, id: 9 },
-        { no: 10, id: 10 },
-        { no: 11, id: 11 },
-        { no: 12, id: 12 },
-        { no: 13, id: 13 },
-        { no: 14, id: 14 },
-        { no: 15, id: 15 },
-        { no: 16, id: 16 },
-        { no: 17, id: 17 },
-        { no: 18, id: 18 },
-      ];
+      const numbers = OBJ12;
       numbers.sort(compareFn);
       for (let i = 0; i < numbers.length; i++) {
         results.push(numbers[i]);
@@ -105,21 +155,20 @@ function startGame() {
       }
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
+      const tile = document.querySelectorAll(" .tile");
+
+      console.log(tile);
+      tile.forEach((tile) => {
+        tile.addEventListener("click", (event) => {
+          gm__play(event);
+        });
+      });
       return results;
     }
   }
   if (GNI == "NUM") {
     if (GSI == "FOUR") {
-      const numbers = [
-        { no: 1, id: 1 },
-        { no: 2, id: 2 },
-        { no: 3, id: 3 },
-        { no: 4, id: 4 },
-        { no: 5, id: 5 },
-        { no: 6, id: 6 },
-        { no: 7, id: 7 },
-        { no: 8, id: 8 },
-      ];
+      const numbers = OBJ8;
       numbers.sort(compareFn);
       for (let i = 0; i < numbers.length; i++) {
         results.push(numbers[i]);
@@ -127,38 +176,21 @@ function startGame() {
       }
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
+      const tile = document.querySelectorAll(" .tile");
+
+      console.log(tile);
+      tile.forEach((tile) => {
+        tile.addEventListener("click", (event) => {
+          gm__play(event);
+        });
+      });
       return results;
     }
   }
 
-  function text(user) {
-    return `<div class="tile" id="${user.id}">
-      ${user.no}
-      </div>`;
-  }
-
   if (GNI == "ICON") {
     if (GSI == "SIX") {
-      const icons = [
-        { no: 1, id: 1, img: "./assets/icons/1.svg" },
-        { no: 2, id: 2, img: "./assets/icons/2.svg" },
-        { no: 3, id: 3, img: "./assets/icons/3.svg" },
-        { no: 4, id: 4, img: "./assets/icons/4.svg" },
-        { no: 5, id: 5, img: "./assets/icons/5.svg" },
-        { no: 6, id: 6, img: "./assets/icons/6.svg" },
-        { no: 7, id: 7, img: "./assets/icons/7.svg" },
-        { no: 8, id: 8, img: "./assets/icons/8.svg" },
-        { no: 9, id: 9, img: "./assets/icons/9.svg" },
-        { no: 10, id: 10, img: "./assets/icons/10.svg" },
-        { no: 11, id: 11, img: "./assets/icons/11.svg" },
-        { no: 12, id: 12, img: "./assets/icons/12.svg" },
-        { no: 13, id: 13, img: "./assets/icons/13.svg" },
-        { no: 14, id: 14, img: "./assets/icons/14.svg" },
-        { no: 15, id: 15, img: "./assets/icons/15.svg" },
-        { no: 16, id: 16, img: "./assets/icons/16.svg" },
-        { no: 17, id: 17, img: "./assets/icons/17.svg" },
-        { no: 18, id: 18, img: "./assets/icons/18.svg" },
-      ];
+      const icons = OBJ12;
       icons.sort(compareFn);
       for (let i = 0; i < icons.length; i++) {
         results.push(icons[i]);
@@ -166,21 +198,20 @@ function startGame() {
       }
       const userListEl = document.querySelector(".tiles");
       userListEl.innerHTML = results.map((user) => textIcon(user)).join("");
+      const tile = document.querySelectorAll(" .tile");
+
+      console.log(tile);
+      tile.forEach((tile) => {
+        tile.addEventListener("click", (event) => {
+          gm__play(event);
+        });
+      });
       return results;
     }
   }
   if (GNI == "ICON") {
     if (GSI == "FOUR") {
-      const icons = [
-        { no: 1, id: 1, img: "./assets/icons/1.svg" },
-        { no: 2, id: 2, img: "./assets/icons/2.svg" },
-        { no: 3, id: 3, img: "./assets/icons/3.svg" },
-        { no: 4, id: 4, img: "./assets/icons/4.svg" },
-        { no: 5, id: 5, img: "./assets/icons/5.svg" },
-        { no: 6, id: 6, img: "./assets/icons/6.svg" },
-        { no: 7, id: 7, img: "./assets/icons/7.svg" },
-        { no: 8, id: 8, img: "./assets/icons/8.svg" },
-      ];
+      const icons = OBJ8;
       icons.sort(compareFn);
       for (let i = 0; i < icons.length; i++) {
         results.push(icons[i]);
@@ -188,45 +219,15 @@ function startGame() {
       }
       const userListEl = document.querySelector(".tiles");
       userListEl.innerHTML = results.map((user) => textIcon(user)).join("");
+      const tile = document.querySelectorAll(" .tile");
+
+      console.log(tile);
+      tile.forEach((tile) => {
+        tile.addEventListener("click", (event) => {
+          gm__play(event);
+        });
+      });
       return results;
     }
   }
-  function textIcon(user) {
-    return `<div class="tile" id="${user.id}" >
-    <img src="${user.img}" class="tile__icon" >
-      </div>`;
-  }
 }
-tile.addEventListener("click", (event) => {
-    gamegame(event)
-  })
-
-
-function gamegame(event){
-  choice.push(event.target.id);
-console.log('23456werty')
-}
-
-setTimeout(() => {
-  
-gamegame(e)}, 1000)
-
-
-
-// function gm__play(event) {
-//   choice.push(event.target.id);
-//   console.log(choice);
-
-//   if (choice.length == 2) {
-//     if (choice[0] == choice[1]) {
-//       console.log("win");
-//     } else if (choice[0] !== choice[1]) {
-//       console.log("lose");
-//     }
-//     moveCount = moveCount + 1;
-//     const moves = document.querySelector(" .moves");
-//     moves.innerHTML = moveCount;
-//     console.log(moveCount);
-//     choice.length = 0;
-//   }
-// }

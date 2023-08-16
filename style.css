@@ -78,9 +78,12 @@ body{
 }
 .tile__icon{
     width: 22px;
+    pointer-events: none;
+    visibility: hidden;
 }
 .players{
     margin: 14px;
     padding: 14px;
     border: 1px solid black;
+     
 }
