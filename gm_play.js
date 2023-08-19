@@ -58,30 +58,47 @@ function text(user) {
       </div>`;
 }
 
-function gm__play(event) {
-  choice.push(event.target.id);
-  console.log(choice);
-  const tile_icon = document.querySelector(".tile__icon");
-  console.log(event)
+// const tile_icon = document.querySelectorAll(".tile__icon");
+// Array.from(tile_icon);
+// console.log(tile_icon);
+// tile_icon.forEach(
+//   addEventListener("click", (event) => {
+//     func_img(event);
+//   })
+// );
+
+// function func_img(event) {
+//   const imgTragetId = event.target.childNodes[1].id;
+//   console.log(imgTragetId);
+//   console.log(tile_icon);
+// for(let i = 0; i < tile_icon.length; ++i){
+
+// } 
+// }
 
 
 
-  // icon_visible.style.visibilty= "visible"
 
 
-  if (choice.length == 2) {
-    if (choice[0] == choice[1]) {
-      console.log("win");
-    } else if (choice[0] !== choice[1]) {
-      console.log("lose");
+  function gm__play(event) {
+    choice.push(event.target.id);
+    console.log(choice);
+
+    // icon_visible.style.visibilty= "visible"
+
+    if (choice.length == 2) {
+      if (choice[0] == choice[1]) {
+        console.log("win");
+      } else if (choice[0] !== choice[1]) {
+        console.log("lose");
+      }
+      moveCount = moveCount + 1;
+      const moves = document.querySelector(" .moves");
+      moves.innerHTML = moveCount;
+      console.log(moveCount);
+      choice.length = 0;
     }
-    moveCount = moveCount + 1;
-    const moves = document.querySelector(" .moves");
-    moves.innerHTML = moveCount;
-    console.log(moveCount);
-    choice.length = 0;
   }
-}
 
 menuBoard = [Num, Icon, gridFour, gridSix, plys_1, plys_2, plys_3, plys_4];
 

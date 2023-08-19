@@ -79,7 +79,7 @@ body{
 .tile__icon{
     width: 22px;
     pointer-events: none;
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 .players{
     margin: 14px;
