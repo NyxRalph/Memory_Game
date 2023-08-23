@@ -3,6 +3,8 @@ const compareFn = () => 0.5 - Math.random();
 const results = [];
 const choice = [];
 let moveCount = 0;
+let tile_icons = [];
+let tiles = [];
 
 const Num = document.querySelector("#Numbers");
 const Icon = document.querySelector("#Icons");
@@ -54,51 +56,62 @@ function textIcon(user) {
 
 function text(user) {
   return `<div class="tile" id="${user.id}">
-      ${user.no}
-      </div>`;
+    ${user.no}
+     </div>`;
 }
 
-// const tile_icon = document.querySelectorAll(".tile__icon");
-// Array.from(tile_icon);
-// console.log(tile_icon);
-// tile_icon.forEach(
-//   addEventListener("click", (event) => {
-//     func_img(event);
-//   })
-// );
+function func_img(event) {
+  console.log(event);
+  const imgTragetId = event.target.childNodes[1].id;
+  console.log(imgTragetId);
+  console.log(tile_icon[imgTragetId]);
+  for (let i = 0; i < tile_icon.length; ++i) {}
+}
 
-// function func_img(event) {
-//   const imgTragetId = event.target.childNodes[1].id;
-//   console.log(imgTragetId);
-//   console.log(tile_icon);
-// for(let i = 0; i < tile_icon.length; ++i){
+function gm__play(event) {
+  choice.push(event.target.id);
+  console.log(choice);
+  // console.log(results)
 
-// } 
-// }
+  if (choice.length == 2) {
+    if (choice[0] == choice[1]) {
+      console.log("win");
+    } else if (choice[0] !== choice[1]) {
+      console.log("lose");
+    }
+    moveCount = moveCount + 1;
+    const moves = document.querySelector(" .moves");
+    moves.innerHTML = moveCount;
+    console.log(moveCount);
+    choice.length = 0;
+  }
 
+  const GridSym = localStorage.getItem("GridSymbol");
 
+  if (GridSym == "NUM") {
+    textTragetId = event.target.id;
+    innerTextId = event.target.innerText;
+    console.log(textTragetId);
 
+    for (let i = 0; i < results.length; ++i) {
+      const poId = (results[i].poID = i);
 
-
-  function gm__play(event) {
-    choice.push(event.target.id);
-    console.log(choice);
-
-    // icon_visible.style.visibilty= "visible"
-
-    if (choice.length == 2) {
-      if (choice[0] == choice[1]) {
-        console.log("win");
-      } else if (choice[0] !== choice[1]) {
-        console.log("lose");
+      if (tiles[0][i].id == innerTextId) {
+        if (poId == results.indexOf(results[i])) {
+          event.target.innerHTML = " ";
+        }
       }
-      moveCount = moveCount + 1;
-      const moves = document.querySelector(" .moves");
-      moves.innerHTML = moveCount;
-      console.log(moveCount);
-      choice.length = 0;
     }
   }
+  if (GridSym == "ICON") {
+    imgTragetId = event.target.childNodes[1].id;
+    console.log(imgTragetId);
+    for (let i = 0; i < tile_icons[0].length; ++i) {
+      if (tile_icons[0][i].id == imgTragetId)
+        event.target.childNodes[1].style.visibility = "hidden";
+    }
+  }
+}
 
 menuBoard = [Num, Icon, gridFour, gridSix, plys_1, plys_2, plys_3, plys_4];
 
@@ -173,6 +186,9 @@ function startGame() {
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+      const tile_icon = document.querySelectorAll(".tile__icon");
+      tiles.push(tile);
+      console.log(tile_icon);
 
       console.log(tile);
       tile.forEach((tile) => {
@@ -180,7 +196,11 @@ function startGame() {
           gm__play(event);
         });
       });
-      return results;
+      // for(let i = 0; i < results.length; ++i){
+      //   results[i].poID = i
+      //   console.log(results[i])
+      // }
+      return results, tile;
     }
   }
   if (GNI == "NUM") {
@@ -194,6 +214,9 @@ function startGame() {
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+      const tile_icon = document.querySelectorAll(".tile__icon");
+      console.log(tile_icon);
+      tiles.push(tile);
 
       console.log(tile);
       tile.forEach((tile) => {
@@ -201,7 +224,11 @@ function startGame() {
           gm__play(event);
         });
       });
-      return results;
+      // for(let i = 0; i < results.length; ++i){
+      //   results[i].poID = i
+      //   console.log(results[i])
+      // }
+      return results, tile;
     }
   }
 
@@ -216,6 +243,10 @@ function startGame() {
       const userListEl = document.querySelector(".tiles");
       userListEl.innerHTML = results.map((user) => textIcon(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+      const tile_icon = document.querySelectorAll(".tile__icon");
+      tile_icons.push(tile_icon);
+
+      console.log(tile_icon);
 
       console.log(tile);
       tile.forEach((tile) => {
@@ -223,7 +254,7 @@ function startGame() {
           gm__play(event);
         });
       });
-      return results;
+      return results, tile_icon;
     }
   }
   if (GNI == "ICON") {
@@ -237,6 +268,10 @@ function startGame() {
       const userListEl = document.querySelector(".tiles");
       userListEl.innerHTML = results.map((user) => textIcon(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+      const tile_icon = document.querySelectorAll(".tile__icon");
+      tile_icons.push(tile_icon);
+
+      console.log(tile_icon);
 
       console.log(tile);
       tile.forEach((tile) => {
@@ -244,7 +279,7 @@ function startGame() {
           gm__play(event);
         });
       });
-      return results;
+      return results, tile_icon;
     }
   }
 }

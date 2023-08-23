@@ -21,8 +21,10 @@ body{
     justify-content: center;
     border-radius: 25px;
     margin: 15px;
+    background-color: aqua;
 
 }
+
 .moves{
     width: 150px;
     height: 30px;
@@ -79,11 +81,12 @@ body{
 .tile__icon{
     width: 22px;
     pointer-events: none;
+   
     /* visibility: hidden; */
 }
 .players{
     margin: 14px;
     padding: 14px;
     border: 1px solid black;
-     
+   
 }
