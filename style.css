@@ -90,3 +90,6 @@ body{
     border: 1px solid black;
    
 }
+.clickOnce{
+    pointer-events: none;
+}

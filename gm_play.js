@@ -75,15 +75,23 @@ function gm__play(event) {
 
   if (choice.length == 2) {
     if (choice[0] == choice[1]) {
-      console.log("win");
+      // console.log("win");
+      // console.log(tiles[0])
+      // console.log(tiles[0])
+      // console.log([choice[0]])
+      // console.log([choice[1]])
     } else if (choice[0] !== choice[1]) {
-      console.log("lose");
+      // console.log("lose");
+      // console.log(tiles[0])
+      // console.log(tiles[0])
+      // console.log([choice[0]])
+      // console.log([choice[1]])
     }
+
     moveCount = moveCount + 1;
     const moves = document.querySelector(" .moves");
     moves.innerHTML = moveCount;
     console.log(moveCount);
-    choice.length = 0;
   }
 
   const GridSym = localStorage.getItem("GridSymbol");
@@ -91,18 +99,46 @@ function gm__play(event) {
   if (GridSym == "NUM") {
     textTragetId = event.target.id;
     innerTextId = event.target.innerText;
-    console.log(textTragetId);
 
     for (let i = 0; i < results.length; ++i) {
       const poId = (results[i].poID = i);
 
-      if (tiles[0][i].id == innerTextId) {
+      if (tiles[0][i].id == textTragetId) {
         if (poId == results.indexOf(results[i])) {
-          event.target.innerHTML = " ";
+          event.target.innerHTML = `${results[i].no}`;
+        }
+      }
+    }
+    // console.log(tiles[0][i].childNodes[0])
+    // console.log(event.target.innerText)
+    // console.log(event.target.id)
+    for (let i = 0; i < tiles[0].length; ++i) {
+      if (tiles[0][i].innerText == event.target.id) {
+        tiles[0][i].classList.add("clickOnce");
+
+        if (choice[0] !== choice[1]) {
+          const TileOne = [];
+          const TileTwo = [];
+
+          if (tiles[0][i].id == choice[0]) {
+            TileOne.push( tiles[0][i])
+          }
+          if (tiles[0][i].id == choice[1]) {
+            TileTwo.push( tiles[0][i])
+          }
+
+          console.log(TileOne[0]);
+          if (choice.length == 2) {
+            console.log(TileTwo[0]);
+
+            // tiles[0][i].style.visibility = "hidden";
+            choice.length = 0;
+          }
         }
       }
     }
   }
+
   if (GridSym == "ICON") {
     imgTragetId = event.target.childNodes[1].id;
     console.log(imgTragetId);
@@ -186,20 +222,19 @@ function startGame() {
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+
       const tile_icon = document.querySelectorAll(".tile__icon");
       tiles.push(tile);
       console.log(tile_icon);
 
-      console.log(tile);
       tile.forEach((tile) => {
         tile.addEventListener("click", (event) => {
           gm__play(event);
         });
       });
-      // for(let i = 0; i < results.length; ++i){
-      //   results[i].poID = i
-      //   console.log(results[i])
-      // }
+      for (let i = 0; i < tile.length; ++i) {
+        tile[i].innerHTML = " ";
+      }
       return results, tile;
     }
   }
@@ -214,6 +249,7 @@ function startGame() {
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+
       const tile_icon = document.querySelectorAll(".tile__icon");
       console.log(tile_icon);
       tiles.push(tile);
@@ -224,10 +260,9 @@ function startGame() {
           gm__play(event);
         });
       });
-      // for(let i = 0; i < results.length; ++i){
-      //   results[i].poID = i
-      //   console.log(results[i])
-      // }
+      for (let i = 0; i < tile.length; ++i) {
+        tile[i].innerHTML = " ";
+      }
       return results, tile;
     }
   }
