@@ -2,10 +2,13 @@ const compareFn = () => 0.5 - Math.random();
 
 const results = [];
 const choice = [];
+const imgChoice = [];
 let moveCount = 0;
 let tile_icons = [];
 let tiles = [];
+let gameCount = 0;
 
+const ele = document.querySelector("#timer");
 const Num = document.querySelector("#Numbers");
 const Icon = document.querySelector("#Icons");
 const gridSix = document.querySelector("#Six");
@@ -48,6 +51,17 @@ const OBJ8 = [
   { no: 8, id: 8, img: "./assets/icons/8.svg" },
 ];
 
+let sec = 0;
+let min = 0;
+const timer = setInterval(function updateTimer() {
+  seconds = sec % 60;
+  minutes = Math.floor(min / 60);
+  ele.innerHTML = minutes + ":" + seconds;
+
+  min++;
+  sec++;
+}, 1000);
+
 function textIcon(user) {
   return `<div class="tile" id="${user.id}" >
   <img id="${user.no}" src="${user.img}" class="tile__icon" >
@@ -56,42 +70,24 @@ function textIcon(user) {
 
 function text(user) {
   return `<div class="tile" id="${user.id}">
-    ${user.no}
-     </div>`;
+  <p> ${user.no}</p>
+  </div>`;
 }
 
 function func_img(event) {
-  console.log(event);
   const imgTragetId = event.target.childNodes[1].id;
   console.log(imgTragetId);
   console.log(tile_icon[imgTragetId]);
-  for (let i = 0; i < tile_icon.length; ++i) {}
 }
 
 function gm__play(event) {
-  choice.push(event.target.id);
-  console.log(choice);
-  // console.log(results)
+  choice.push(event.srcElement);
 
+  // choiceOneTwo.push(event.srcElement)
   if (choice.length == 2) {
-    if (choice[0] == choice[1]) {
-      // console.log("win");
-      // console.log(tiles[0])
-      // console.log(tiles[0])
-      // console.log([choice[0]])
-      // console.log([choice[1]])
-    } else if (choice[0] !== choice[1]) {
-      // console.log("lose");
-      // console.log(tiles[0])
-      // console.log(tiles[0])
-      // console.log([choice[0]])
-      // console.log([choice[1]])
-    }
-
     moveCount = moveCount + 1;
     const moves = document.querySelector(" .moves");
     moves.innerHTML = moveCount;
-    console.log(moveCount);
   }
 
   const GridSym = localStorage.getItem("GridSymbol");
@@ -100,51 +96,120 @@ function gm__play(event) {
     textTragetId = event.target.id;
     innerTextId = event.target.innerText;
 
-    for (let i = 0; i < results.length; ++i) {
-      const poId = (results[i].poID = i);
+    setTimeout(() => {
+      for (let i = 0; i < results.length; ++i) {
+        const poId = (results[i].poID = i);
 
-      if (tiles[0][i].id == textTragetId) {
-        if (poId == results.indexOf(results[i])) {
-          event.target.innerHTML = `${results[i].no}`;
-        }
-      }
-    }
-    // console.log(tiles[0][i].childNodes[0])
-    // console.log(event.target.innerText)
-    // console.log(event.target.id)
-    for (let i = 0; i < tiles[0].length; ++i) {
-      if (tiles[0][i].innerText == event.target.id) {
-        tiles[0][i].classList.add("clickOnce");
-
-        if (choice[0] !== choice[1]) {
-          const TileOne = [];
-          const TileTwo = [];
-
-          if (tiles[0][i].id == choice[0]) {
-            TileOne.push( tiles[0][i])
-          }
-          if (tiles[0][i].id == choice[1]) {
-            TileTwo.push( tiles[0][i])
-          }
-
-          console.log(TileOne[0]);
-          if (choice.length == 2) {
-            console.log(TileTwo[0]);
-
-            // tiles[0][i].style.visibility = "hidden";
-            choice.length = 0;
+        if (tiles[0][i].id == textTragetId) {
+          if (poId == results.indexOf(results[i])) {
+            event.target.innerHTML = `${results[i].no}`;
           }
         }
+
+        // GAMEPLAY SYSTEM
+
+        if (tiles[0][i].innerText == event.target.id) {
+          tiles[0][i].classList.add("clickOnce");
+
+          localStorage.setItem("ChoiceOne", choice[0].id);
+          const ChoiceOne = localStorage.getItem("ChoiceOne");
+
+          const GSI = localStorage.getItem("GridSize");
+
+          if (choice[1]) {
+            if (ChoiceOne == tiles[0][i].id) {
+              if (results[i].poID == i) {
+                gameCount = gameCount + 1;
+                if (GSI == "FOUR") {
+                  if (gameCount == 8) {
+                    clearInterval(timer);
+                  }
+                }
+                if (GSI == "SIX") {
+                  if (gameCount == 18) {
+                    clearInterval(timer);
+                  }
+                }
+              }
+            }
+
+            if (choice.length == 2) {
+              localStorage.setItem("ChoiceTwo", choice[1].id);
+              const ChoiceTwo = localStorage.getItem("ChoiceTwo");
+
+              if (choice[0].id !== choice[1].id) {
+                if (ChoiceTwo == tiles[0][i].id) {
+                  if (results[i].poID == i) {
+                    const ChOne = event.srcElement;
+                    setTimeout(() => {
+                      tiles[0][i].innerText = [];
+                      tiles[0][i].classList.remove("clickOnce");
+                    }, 350);
+                  }
+
+                  choice[0].innerText = [];
+                  choice[0].classList.remove("clickOnce");
+                }
+              }
+
+              choice.length = 0;
+            }
+          }
+        }
       }
-    }
+    }, 100);
   }
 
   if (GridSym == "ICON") {
     imgTragetId = event.target.childNodes[1].id;
-    console.log(imgTragetId);
-    for (let i = 0; i < tile_icons[0].length; ++i) {
-      if (tile_icons[0][i].id == imgTragetId)
-        event.target.childNodes[1].style.visibility = "hidden";
+    // console.log(event)
+
+    const GSI = localStorage.getItem("GridSize");
+    for (let i = 0; i < results.length; ++i) {
+      const PoId = (results[i].poID = i);
+      const imgPoId = (results[i].imgpoID = i);
+
+      if (tile_icons[0][i].id == imgTragetId) {
+        if (event.srcElement.childNodes[1] == tile_icons[0][i]) {
+          imgChoice.push(event.srcElement.childNodes[1]);
+          if (imgChoice[0]) {
+            imgChoice[0].style.visibility = "visible";
+            if (imgChoice.length == 2) {
+
+
+              imgChoice[1].style.visibility = "visible";
+              if (imgChoice[0].id !== imgChoice[1].id) {
+                const imgChoiceOne = imgChoice[0];
+                setTimeout(() => {
+                  imgChoiceOne.style.visibility = "hidden";
+                  event.srcElement.childNodes[1].style.visibility = "hidden";
+                }, 300);
+              }
+              if (imgChoice[0].id == imgChoice[1].id) {
+                const imgChoiceOne = imgChoice[0];
+
+                setTimeout(() => {
+                  imgChoiceOne.style.visibility = "visible";
+                  event.srcElement.childNodes[1].style.visibility = "visible";
+                }, 300);
+                gameCount = gameCount + 1;
+                if (GSI == "FOUR") {
+                  if (gameCount == 8) {
+                    clearInterval(timer);
+                  }
+                }
+                if (GSI == "SIX") {
+                  if (gameCount == 18) {
+                    clearInterval(timer);
+                  }
+                }
+                console.log(gameCount)
+              }
+              imgChoice.length = 0;
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -195,22 +260,6 @@ function startGame() {
   const GNI = localStorage.getItem("GridSymbol");
   const GSI = localStorage.getItem("GridSize");
 
-  let ele = document.querySelector("#timer");
-
-  function timeUp() {
-    let sec = 0;
-    let min = 0;
-    let timer = setInterval(() => {
-      seconds = sec % 60;
-      minutes = Math.floor(min / 60);
-      ele.innerHTML = minutes + ":" + seconds;
-
-      min++;
-      sec++;
-    }, 1000);
-  }
-  timeUp();
-
   if (GNI == "NUM") {
     if (GSI == "SIX") {
       const numbers = OBJ12;
@@ -222,6 +271,9 @@ function startGame() {
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+      for (let i = 0; i < tile.length; ++i) {
+        tile[i].innerHTML = [];
+      }
 
       const tile_icon = document.querySelectorAll(".tile__icon");
       tiles.push(tile);
@@ -232,9 +284,7 @@ function startGame() {
           gm__play(event);
         });
       });
-      for (let i = 0; i < tile.length; ++i) {
-        tile[i].innerHTML = " ";
-      }
+
       return results, tile;
     }
   }
@@ -249,6 +299,9 @@ function startGame() {
       const userListEl = document.querySelector(" .tiles");
       userListEl.innerHTML = results.map((user) => text(user)).join("");
       const tile = document.querySelectorAll(" .tile");
+      for (let i = 0; i < tile.length; ++i) {
+        tile[i].innerHTML = [];
+      }
 
       const tile_icon = document.querySelectorAll(".tile__icon");
       console.log(tile_icon);
@@ -260,9 +313,7 @@ function startGame() {
           gm__play(event);
         });
       });
-      for (let i = 0; i < tile.length; ++i) {
-        tile[i].innerHTML = " ";
-      }
+
       return results, tile;
     }
   }
@@ -280,10 +331,6 @@ function startGame() {
       const tile = document.querySelectorAll(" .tile");
       const tile_icon = document.querySelectorAll(".tile__icon");
       tile_icons.push(tile_icon);
-
-      console.log(tile_icon);
-
-      console.log(tile);
       tile.forEach((tile) => {
         tile.addEventListener("click", (event) => {
           gm__play(event);
@@ -305,10 +352,6 @@ function startGame() {
       const tile = document.querySelectorAll(" .tile");
       const tile_icon = document.querySelectorAll(".tile__icon");
       tile_icons.push(tile_icon);
-
-      console.log(tile_icon);
-
-      console.log(tile);
       tile.forEach((tile) => {
         tile.addEventListener("click", (event) => {
           gm__play(event);
