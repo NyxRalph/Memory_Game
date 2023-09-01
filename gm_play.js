@@ -172,22 +172,27 @@ function gm__play(event) {
       if (tile_icons[0][i].id == imgTragetId) {
         if (event.srcElement.childNodes[1] == tile_icons[0][i]) {
           imgChoice.push(event.srcElement.childNodes[1]);
+
           if (imgChoice[0]) {
             imgChoice[0].style.visibility = "visible";
+            event.srcElement.classList.add("clickOnce");
+
             if (imgChoice.length == 2) {
-
-
+              imgChoice[1].classList.add("clickOnce");
               imgChoice[1].style.visibility = "visible";
               if (imgChoice[0].id !== imgChoice[1].id) {
                 const imgChoiceOne = imgChoice[0];
+                choice[0].classList.remove("clickOnce");
                 setTimeout(() => {
                   imgChoiceOne.style.visibility = "hidden";
                   event.srcElement.childNodes[1].style.visibility = "hidden";
+                  event.srcElement.classList.remove("clickOnce");
                 }, 300);
               }
               if (imgChoice[0].id == imgChoice[1].id) {
                 const imgChoiceOne = imgChoice[0];
 
+                imgChoice[1].classList.add("clickOnce");
                 setTimeout(() => {
                   imgChoiceOne.style.visibility = "visible";
                   event.srcElement.childNodes[1].style.visibility = "visible";
@@ -203,9 +208,10 @@ function gm__play(event) {
                     clearInterval(timer);
                   }
                 }
-                console.log(gameCount)
+                console.log(gameCount);
               }
               imgChoice.length = 0;
+              choice.length = 0;
             }
           }
         }
