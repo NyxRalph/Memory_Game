@@ -51,16 +51,6 @@ const OBJ8 = [
   { no: 8, id: 8, img: "./assets/icons/8.svg" },
 ];
 
-let sec = 0;
-let min = 0;
-const timer = setInterval(function updateTimer() {
-  seconds = sec % 60;
-  minutes = Math.floor(min / 60);
-  ele.innerHTML = minutes + ":" + seconds;
-
-  min++;
-  sec++;
-}, 1000);
 
 function textIcon(user) {
   return `<div class="tile" id="${user.id}" >
@@ -262,9 +252,45 @@ function startGame() {
   startMenu.style.display = "none";
   const gameBoard = document.querySelector(".gameBoard");
   gameBoard.style.display = "flex";
+  const playerCount = document.querySelector(" .player__count");
+  playerCount.style.display = "flex";
 
   const GNI = localStorage.getItem("GridSymbol");
   const GSI = localStorage.getItem("GridSize");
+
+  const players = localStorage.getItem("Players");
+  console.log(players);
+
+
+  let sec = 0;
+  let min = 0;
+  const timer = setInterval(function updateTimer() {
+    seconds = sec % 60;
+    minutes = Math.floor(min / 60);
+    ele.innerHTML = minutes + ":" + seconds;
+  
+    min++;
+    sec++;
+  }, 1000);
+
+
+  if (players == "ply_1") {
+    playerCount.style.display = "none";
+  }
+  if (players == "ply_2") {
+    playerCount.style.display = "flex";
+    document.querySelector(".player__3").style.display = "none";
+    document.querySelector(".player__4").style.display = "none";
+    document.querySelector("#timer").style.display = "none"
+  }
+  if (players == "ply_3") {
+    document.querySelector(".player__4").style.display = "none";
+    document.querySelector("#timer").style.display = "none"
+  }
+  if (players == "ply_4") {
+    playerCount.style.display = "flex";
+    document.querySelector("#timer").style.display = "none"
+  }
 
   if (GNI == "NUM") {
     if (GSI == "SIX") {
