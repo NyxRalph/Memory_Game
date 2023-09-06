@@ -7,6 +7,13 @@ let moveCount = 0;
 let tile_icons = [];
 let tiles = [];
 let gameCount = 0;
+const letters = [];
+let letterIndex = 0;
+
+const ply_1_score = 0;
+const ply_2_score = 0;
+const ply_3_score = 0;
+const ply_4_score = 0;
 
 const ele = document.querySelector("#timer");
 const Num = document.querySelector("#Numbers");
@@ -51,6 +58,9 @@ const OBJ8 = [
   { no: 8, id: 8, img: "./assets/icons/8.svg" },
 ];
 
+if (moveCount == 0) {
+  document.querySelector(".player__1").style.backgroundColor = "aqua";
+}
 
 function textIcon(user) {
   return `<div class="tile" id="${user.id}" >
@@ -136,11 +146,91 @@ function gm__play(event) {
                       tiles[0][i].classList.remove("clickOnce");
                     }, 350);
                   }
-
+                  console.log(letter);
                   choice[0].innerText = [];
                   choice[0].classList.remove("clickOnce");
                 }
               }
+
+              if (moveCount % 1 == 0) {
+                letterIndex++;
+              }
+
+              function displayNextPlayer() {
+                const letter = letters[letterIndex];
+                if (letterIndex >= letters.length - 1) {
+                  letterIndex = 0;
+                }
+
+                const players = localStorage.getItem("Players");
+
+                if (players == "ply_4") {
+                  if (moveCount == 2) {
+                    letters.unshift(0);
+                    letterIndex = letterIndex + 1;
+                  }
+                }
+                if (players == "ply_3") {
+                  if (moveCount == 1) {
+                    letters.unshift(0);
+                    letterIndex = letterIndex + 1;
+                  }
+                }
+                if (players == "ply_2") {
+                  if (moveCount == 1) {
+                    letters.unshift(0);
+                  }
+                }
+                console.log(letter);
+
+                if (letter == "A") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "aqua";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "white";
+                }
+                if (letter == "B") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "aqua";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "white";
+                }
+                if (letter == "C") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "aqua";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "white";
+                }
+                if (letter == "D") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "aqua";
+                }
+              }
+
+              displayNextPlayer();
+
+              document.querySelector(".player_1_score").innerHTML = ply_1_score;
+              document.querySelector(".player_2_score").innerHTML = ply_2_score;
+              document.querySelector(".player_3_score").innerHTML = ply_3_score;
+              document.querySelector(".player_4_score").innerHTML = ply_4_score;
 
               choice.length = 0;
             }
@@ -198,8 +288,115 @@ function gm__play(event) {
                     clearInterval(timer);
                   }
                 }
-                console.log(gameCount);
               }
+
+              if (moveCount % 1 == 0) {
+                letterIndex++;
+              }
+
+              function displayNextPlayer() {
+                const letter = letters[letterIndex];
+                if (letterIndex >= letters.length - 1) {
+                  letterIndex = 0;
+                }
+
+                const players = localStorage.getItem("Players");
+
+                if (players == "ply_4") {
+                  if (moveCount == 2) {
+                    letters.unshift(0);
+                    letterIndex = letterIndex + 1;
+                  }
+                }
+                if (players == "ply_3") {
+                  if (moveCount == 1) {
+                    letters.unshift(0);
+                    letterIndex = letterIndex + 1;
+                  }
+                }
+                if (players == "ply_2") {
+                  if (moveCount == 1) {
+                    letters.unshift(0);
+                  }
+                }
+                console.log(letter);
+                console.log(imgChoice[0].id);
+                console.log(imgChoice[1].id);
+
+                if (letter == "A") {
+                  console.log("hi")
+                  if (imgChoice[0].id == imgChoice[1].id) {
+                    ply_1_score + 1;
+                  }
+                }
+                if (letter == "B") {
+                  console.log("hi")
+                  if (imgChoice[0].id == imgChoice[1].id) {
+                    ply_2_score + 1;
+                  }
+                }
+                if (letter == "C") {
+                  console.log("hi")
+                  if (imgChoice[0].id == imgChoice[1].id) {
+                    ply_3_score + 1;
+                  }
+                }
+                if (letter == "D") {
+                  console.log("hi")
+                  if (imgChoice[0].id == imgChoice[1].id) {
+                    ply_4_score + 1;
+                  }
+                }
+
+                // console.log(ply_1_score);
+                // console.log(ply_2_score);
+                // console.log(ply_3_score);
+                // console.log(ply_4_score);
+
+                if (letter == "A") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "aqua";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "white";
+                }
+                if (letter == "B") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "aqua";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "white";
+                }
+                if (letter == "C") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "aqua";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "white";
+                }
+                if (letter == "D") {
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "white";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "aqua";
+                }
+              }
+
+              displayNextPlayer();
+
               imgChoice.length = 0;
               choice.length = 0;
             }
@@ -261,18 +458,16 @@ function startGame() {
   const players = localStorage.getItem("Players");
   console.log(players);
 
-
   let sec = 0;
   let min = 0;
   const timer = setInterval(function updateTimer() {
     seconds = sec % 60;
     minutes = Math.floor(min / 60);
     ele.innerHTML = minutes + ":" + seconds;
-  
+
     min++;
     sec++;
   }, 1000);
-
 
   if (players == "ply_1") {
     playerCount.style.display = "none";
@@ -281,15 +476,21 @@ function startGame() {
     playerCount.style.display = "flex";
     document.querySelector(".player__3").style.display = "none";
     document.querySelector(".player__4").style.display = "none";
-    document.querySelector("#timer").style.display = "none"
+    document.querySelector("#timer").style.display = "none";
+    clearInterval(timer);
+    letters.push("A", "B");
   }
   if (players == "ply_3") {
     document.querySelector(".player__4").style.display = "none";
-    document.querySelector("#timer").style.display = "none"
+    document.querySelector("#timer").style.display = "none";
+    clearInterval(timer);
+    letters.push("A", "B", "C");
   }
   if (players == "ply_4") {
     playerCount.style.display = "flex";
-    document.querySelector("#timer").style.display = "none"
+    document.querySelector("#timer").style.display = "none";
+    clearInterval(timer);
+    letters.push("A", "B", "C", "D");
   }
 
   if (GNI == "NUM") {
@@ -309,7 +510,6 @@ function startGame() {
 
       const tile_icon = document.querySelectorAll(".tile__icon");
       tiles.push(tile);
-      console.log(tile_icon);
 
       tile.forEach((tile) => {
         tile.addEventListener("click", (event) => {
