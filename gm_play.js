@@ -10,10 +10,10 @@ let gameCount = 0;
 const letters = [];
 let letterIndex = 0;
 
-const ply_1_score = 0;
-const ply_2_score = 0;
-const ply_3_score = 0;
-const ply_4_score = 0;
+ply_1_score = 0;
+ply_2_score = 0;
+ply_3_score = 0;
+ply_4_score = 0;
 
 const ele = document.querySelector("#timer");
 const Num = document.querySelector("#Numbers");
@@ -136,19 +136,20 @@ function gm__play(event) {
             if (choice.length == 2) {
               localStorage.setItem("ChoiceTwo", choice[1].id);
               const ChoiceTwo = localStorage.getItem("ChoiceTwo");
-
               if (choice[0].id !== choice[1].id) {
                 if (ChoiceTwo == tiles[0][i].id) {
+                  const ChoiceOne = choice[0];
                   if (results[i].poID == i) {
                     const ChOne = event.srcElement;
+
                     setTimeout(() => {
                       tiles[0][i].innerText = [];
                       tiles[0][i].classList.remove("clickOnce");
+
+                      ChoiceOne.innerText = [];
+                      ChoiceOne.classList.remove("clickOnce");
                     }, 350);
                   }
-                  console.log(letter);
-                  choice[0].innerText = [];
-                  choice[0].classList.remove("clickOnce");
                 }
               }
 
@@ -182,6 +183,67 @@ function gm__play(event) {
                   }
                 }
                 console.log(letter);
+
+                if (players == "ply_4") {
+                  if (letter == "C") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_2_score = ply_2_score + 1;
+                    }
+                  }
+                  if (letter == "D") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_3_score = ply_3_score + 1;
+                    }
+                  }
+                  if (letter == "A") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_4_score = ply_4_score + 1;
+                    }
+                  }
+                  if (letter == "B") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_1_score = ply_1_score + 1;
+                    }
+                  }
+                }
+                if (players == "ply_3") {
+                  if (letter == "C") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_2_score = ply_2_score + 1;
+                    }
+                  }
+
+                  if (letter == "A") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_3_score = ply_3_score + 1;
+                    }
+                  }
+                  if (letter == "B") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_1_score = ply_1_score + 1;
+                    }
+                  }
+                }
+                if (players == "ply_2") {
+                  if (letter == "A") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_2_score = ply_2_score + 1;
+                    }
+                  }
+                  if (letter == "B") {
+                    if (choice[0].id == choice[1].id) {
+                      ply_1_score = ply_1_score + 1;
+                    }
+                  }
+                }
+                document.querySelector(".player_1_score").innerHTML =
+                  ply_1_score;
+                document.querySelector(".player_2_score").innerHTML =
+                  ply_2_score;
+                document.querySelector(".player_3_score").innerHTML =
+                  ply_3_score;
+                document.querySelector(".player_4_score").innerHTML =
+                  ply_4_score;
 
                 if (letter == "A") {
                   document.querySelector(".player__1").style.backgroundColor =
@@ -226,11 +288,6 @@ function gm__play(event) {
               }
 
               displayNextPlayer();
-
-              document.querySelector(".player_1_score").innerHTML = ply_1_score;
-              document.querySelector(".player_2_score").innerHTML = ply_2_score;
-              document.querySelector(".player_3_score").innerHTML = ply_3_score;
-              document.querySelector(".player_4_score").innerHTML = ply_4_score;
 
               choice.length = 0;
             }
@@ -293,9 +350,9 @@ function gm__play(event) {
               if (moveCount % 1 == 0) {
                 letterIndex++;
               }
+              const letter = letters[letterIndex];
 
               function displayNextPlayer() {
-                const letter = letters[letterIndex];
                 if (letterIndex >= letters.length - 1) {
                   letterIndex = 0;
                 }
@@ -319,79 +376,117 @@ function gm__play(event) {
                     letters.unshift(0);
                   }
                 }
+
                 console.log(letter);
-                console.log(imgChoice[0].id);
-                console.log(imgChoice[1].id);
+
+                if (players == "ply_4") {
+                  if (letter == "C") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_2_score = ply_2_score + 1;
+                    }
+                  }
+                  if (letter == "D") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_3_score = ply_3_score + 1;
+                    }
+                  }
+                  if (letter == "A") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_4_score = ply_4_score + 1;
+                    }
+                  }
+                  if (letter == "B") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_1_score = ply_1_score + 1;
+                    }
+                  }
+                }
+                if (players == "ply_3") {
+                  if (letter == "C") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_2_score = ply_2_score + 1;
+                    }
+                  }
+
+                  if (letter == "A") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_3_score = ply_3_score + 1;
+                    }
+                  }
+                  if (letter == "B") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_1_score = ply_1_score + 1;
+                    }
+                  }
+                }
+                if (players == "ply_2") {
+                  if (letter == "A") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_2_score = ply_2_score + 1;
+                    }
+                  }
+                  if (letter == "B") {
+                    if (imgChoice[0].id == imgChoice[1].id) {
+                      ply_1_score = ply_1_score + 1;
+                    }
+                  }
+                }
+                document.querySelector(".player_1_score").innerHTML =
+                  ply_1_score;
+                document.querySelector(".player_2_score").innerHTML =
+                  ply_2_score;
+                document.querySelector(".player_3_score").innerHTML =
+                  ply_3_score;
+                document.querySelector(".player_4_score").innerHTML =
+                  ply_4_score;
 
                 if (letter == "A") {
-                  console.log("hi")
-                  if (imgChoice[0].id == imgChoice[1].id) {
-                    ply_1_score + 1;
-                  }
+                  setTimeout(() => {
+                    document.querySelector(".player__1").style.backgroundColor =
+                      "aqua";
+                    document.querySelector(".player__2").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__3").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__4").style.backgroundColor =
+                      "white";
+                  }, 450);
                 }
                 if (letter == "B") {
-                  console.log("hi")
-                  if (imgChoice[0].id == imgChoice[1].id) {
-                    ply_2_score + 1;
-                  }
+                  setTimeout(() => {
+                    document.querySelector(".player__1").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__2").style.backgroundColor =
+                      "aqua";
+                    document.querySelector(".player__3").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__4").style.backgroundColor =
+                      "white";
+                  }, 450);
                 }
                 if (letter == "C") {
-                  console.log("hi")
-                  if (imgChoice[0].id == imgChoice[1].id) {
-                    ply_3_score + 1;
-                  }
+                  setTimeout(() => {
+                    document.querySelector(".player__1").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__2").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__3").style.backgroundColor =
+                      "aqua";
+                    document.querySelector(".player__4").style.backgroundColor =
+                      "white";
+                  }, 450);
                 }
                 if (letter == "D") {
-                  console.log("hi")
-                  if (imgChoice[0].id == imgChoice[1].id) {
-                    ply_4_score + 1;
-                  }
-                }
-
-                // console.log(ply_1_score);
-                // console.log(ply_2_score);
-                // console.log(ply_3_score);
-                // console.log(ply_4_score);
-
-                if (letter == "A") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "aqua";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "white";
-                }
-                if (letter == "B") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "aqua";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "white";
-                }
-                if (letter == "C") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "aqua";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "white";
-                }
-                if (letter == "D") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "aqua";
+                  setTimeout(() => {
+                    document.querySelector(".player__1").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__2").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__3").style.backgroundColor =
+                      "white";
+                    document.querySelector(".player__4").style.backgroundColor =
+                      "aqua";
+                  }, 450);
                 }
               }
 
@@ -477,18 +572,21 @@ function startGame() {
     document.querySelector(".player__3").style.display = "none";
     document.querySelector(".player__4").style.display = "none";
     document.querySelector("#timer").style.display = "none";
+    document.querySelector(".moves").style.display = "none";
     clearInterval(timer);
     letters.push("A", "B");
   }
   if (players == "ply_3") {
     document.querySelector(".player__4").style.display = "none";
     document.querySelector("#timer").style.display = "none";
+    document.querySelector(".moves").style.display = "none";
     clearInterval(timer);
     letters.push("A", "B", "C");
   }
   if (players == "ply_4") {
     playerCount.style.display = "flex";
     document.querySelector("#timer").style.display = "none";
+    document.querySelector(".moves").style.display = "none";
     clearInterval(timer);
     letters.push("A", "B", "C", "D");
   }
@@ -592,4 +690,19 @@ function startGame() {
       return results, tile_icon;
     }
   }
+}
+
+
+
+function findHighestNumber() {
+  numbers = [5, 6, 7, 8];
+  let highest = numbers[0];
+
+  for (let i = 1; i < numbers.length; i++) {
+    if (numbers[i] > highest) {
+      highest = numbers[i];
+    }
+  }
+
+  return highest;
 }
