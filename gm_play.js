@@ -1,4 +1,5 @@
 const compareFn = () => 0.5 - Math.random();
+const highToLow = (a, b) => b - a;
 
 const results = [];
 const choice = [];
@@ -59,7 +60,8 @@ const OBJ8 = [
 ];
 
 if (moveCount == 0) {
-  document.querySelector(".player__1").style.backgroundColor = "aqua";
+  document.querySelector(".player__1").style.backgroundColor = "#FDA214";
+  document.querySelector(".player__1").style.color = "#FCFCFC";
 }
 
 function textIcon(user) {
@@ -83,7 +85,6 @@ function func_img(event) {
 function gm__play(event) {
   choice.push(event.srcElement);
 
-  // choiceOneTwo.push(event.srcElement)
   if (choice.length == 2) {
     moveCount = moveCount + 1;
     const moves = document.querySelector(" .moves");
@@ -91,210 +92,228 @@ function gm__play(event) {
   }
 
   const GridSym = localStorage.getItem("GridSymbol");
+  const GSI = localStorage.getItem("GridSize");
 
   if (GridSym == "NUM") {
     textTragetId = event.target.id;
     innerTextId = event.target.innerText;
 
-    setTimeout(() => {
-      for (let i = 0; i < results.length; ++i) {
-        const poId = (results[i].poID = i);
+    // setTimeout(() => {
+    for (let i = 0; i < results.length; ++i) {
+      const poId = (results[i].poID = i);
 
-        if (tiles[0][i].id == textTragetId) {
-          if (poId == results.indexOf(results[i])) {
-            event.target.innerHTML = `${results[i].no}`;
-          }
+      if (tiles[0][i].id == textTragetId) {
+        if (poId == results.indexOf(results[i])) {
+          event.target.innerHTML = `${results[i].no}`;
         }
+      }
 
-        // GAMEPLAY SYSTEM
+      // GAMEPLAY SYSTEM
 
-        if (tiles[0][i].innerText == event.target.id) {
-          tiles[0][i].classList.add("clickOnce");
+      if (tiles[0][i].innerText == event.target.id) {
+        tiles[0][i].classList.add("clickOnce");
+        tiles[0][i].style.backgroundColor = "#FDA214";
 
+        const GSI = localStorage.getItem("GridSize");
+
+        if (choice[1]) {
           localStorage.setItem("ChoiceOne", choice[0].id);
           const ChoiceOne = localStorage.getItem("ChoiceOne");
+          if (choice.length == 2) {
+            localStorage.setItem("ChoiceTwo", choice[1].id);
+            const ChoiceTwo = localStorage.getItem("ChoiceTwo");
 
-          const GSI = localStorage.getItem("GridSize");
+            if (choice[0].id !== choice[1].id) {
+              if (ChoiceTwo == tiles[0][i].id) {
+                const ChoiceOne = choice[0];
+                if (results[i].poID == i) {
+                  setTimeout(() => {
+                    tiles[0][i].style.backgroundColor = "#304859";
+                    ChoiceOne.style.backgroundColor = "#304859";
 
-          if (choice[1]) {
-            if (ChoiceOne == tiles[0][i].id) {
-              if (results[i].poID == i) {
-                gameCount = gameCount + 1;
-                if (GSI == "FOUR") {
-                  if (gameCount == 8) {
-                    clearInterval(timer);
-                  }
-                }
-                if (GSI == "SIX") {
-                  if (gameCount == 18) {
-                    clearInterval(timer);
-                  }
+                    tiles[0][i].innerText = [];
+                    ChoiceOne.innerText = [];
+                    tiles[0][i].classList.remove("clickOnce");
+                    ChoiceOne.classList.remove("clickOnce");
+                  }, 350);
                 }
               }
             }
+            const ChoiceOne = choice[0];
+            const ChoiceTwo2 = choice[1];
+            if (choice[0].id == choice[1].id) {
+              setTimeout(() => {
+                ChoiceTwo2.style.backgroundColor = "#BCCED9";
+                ChoiceOne.style.backgroundColor = "#BCCED9";
+              }, 350);
+            }
 
-            if (choice.length == 2) {
-              localStorage.setItem("ChoiceTwo", choice[1].id);
-              const ChoiceTwo = localStorage.getItem("ChoiceTwo");
-              if (choice[0].id !== choice[1].id) {
-                if (ChoiceTwo == tiles[0][i].id) {
-                  const ChoiceOne = choice[0];
-                  if (results[i].poID == i) {
-                    const ChOne = event.srcElement;
+            if (moveCount % 1 == 0) {
+              letterIndex++;
+            }
 
-                    setTimeout(() => {
-                      tiles[0][i].innerText = [];
-                      tiles[0][i].classList.remove("clickOnce");
+            if (choice[0].id == choice[1].id) {
+              gameCount = gameCount + 1;
+              console.log(gameCount);
+            }
 
-                      ChoiceOne.innerText = [];
-                      ChoiceOne.classList.remove("clickOnce");
-                    }, 350);
-                  }
-                }
+            function displayNextPlayer() {
+              const letter = letters[letterIndex];
+              if (letterIndex >= letters.length - 1) {
+                letterIndex = 0;
               }
 
-              if (moveCount % 1 == 0) {
-                letterIndex++;
+              const players = localStorage.getItem("Players");
+
+              if (players == "ply_4") {
+                if (moveCount == 2) {
+                  letters.unshift(0);
+                  letterIndex = letterIndex + 1;
+                }
               }
-
-              function displayNextPlayer() {
-                const letter = letters[letterIndex];
-                if (letterIndex >= letters.length - 1) {
-                  letterIndex = 0;
+              if (players == "ply_3") {
+                if (moveCount == 1) {
+                  letters.unshift(0);
+                  letterIndex = letterIndex + 1;
                 }
-
-                const players = localStorage.getItem("Players");
-
-                if (players == "ply_4") {
-                  if (moveCount == 2) {
-                    letters.unshift(0);
-                    letterIndex = letterIndex + 1;
-                  }
+              }
+              if (players == "ply_2") {
+                if (moveCount == 1) {
+                  letters.unshift(0);
                 }
-                if (players == "ply_3") {
-                  if (moveCount == 1) {
-                    letters.unshift(0);
-                    letterIndex = letterIndex + 1;
-                  }
-                }
-                if (players == "ply_2") {
-                  if (moveCount == 1) {
-                    letters.unshift(0);
-                  }
-                }
-                console.log(letter);
-
-                if (players == "ply_4") {
-                  if (letter == "C") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_2_score = ply_2_score + 1;
-                    }
-                  }
-                  if (letter == "D") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_3_score = ply_3_score + 1;
-                    }
-                  }
-                  if (letter == "A") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_4_score = ply_4_score + 1;
-                    }
-                  }
-                  if (letter == "B") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_1_score = ply_1_score + 1;
-                    }
-                  }
-                }
-                if (players == "ply_3") {
-                  if (letter == "C") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_2_score = ply_2_score + 1;
-                    }
-                  }
-
-                  if (letter == "A") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_3_score = ply_3_score + 1;
-                    }
-                  }
-                  if (letter == "B") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_1_score = ply_1_score + 1;
-                    }
-                  }
-                }
-                if (players == "ply_2") {
-                  if (letter == "A") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_2_score = ply_2_score + 1;
-                    }
-                  }
-                  if (letter == "B") {
-                    if (choice[0].id == choice[1].id) {
-                      ply_1_score = ply_1_score + 1;
-                    }
-                  }
-                }
-                document.querySelector(".player_1_score").innerHTML =
-                  ply_1_score;
-                document.querySelector(".player_2_score").innerHTML =
-                  ply_2_score;
-                document.querySelector(".player_3_score").innerHTML =
-                  ply_3_score;
-                document.querySelector(".player_4_score").innerHTML =
-                  ply_4_score;
-
-                if (letter == "A") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "aqua";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "white";
-                }
-                if (letter == "B") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "aqua";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "white";
-                }
+              }
+              if (players == "ply_4") {
                 if (letter == "C") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "aqua";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "white";
+                  if (choice[0].id == choice[1].id) {
+                    ply_2_score = ply_2_score + 1;
+                  }
                 }
                 if (letter == "D") {
-                  document.querySelector(".player__1").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__2").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__3").style.backgroundColor =
-                    "white";
-                  document.querySelector(".player__4").style.backgroundColor =
-                    "aqua";
+                  if (choice[0].id == choice[1].id) {
+                    ply_3_score = ply_3_score + 1;
+                  }
+                }
+                if (letter == "A") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_4_score = ply_4_score + 1;
+                  }
+                }
+                if (letter == "B") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_1_score = ply_1_score + 1;
+                  }
                 }
               }
+              if (players == "ply_3") {
+                if (letter == "C") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_2_score = ply_2_score + 1;
+                  }
+                }
 
-              displayNextPlayer();
+                if (letter == "A") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_3_score = ply_3_score + 1;
+                  }
+                }
+                if (letter == "B") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_1_score = ply_1_score + 1;
+                  }
+                }
+              }
+              if (players == "ply_2") {
+                if (letter == "A") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_2_score = ply_2_score + 1;
+                  }
+                }
+                if (letter == "B") {
+                  if (choice[0].id == choice[1].id) {
+                    ply_1_score = ply_1_score + 1;
+                  }
+                }
+              }
+              document.querySelector(".player_1_score").innerHTML = ply_1_score;
+              document.querySelector(".player_2_score").innerHTML = ply_2_score;
+              document.querySelector(".player_3_score").innerHTML = ply_3_score;
+              document.querySelector(".player_4_score").innerHTML = ply_4_score;
 
-              choice.length = 0;
+              if (letter == "A") {
+                document.querySelector(".player__1").style.backgroundColor =
+                  "#FDA214";
+                document.querySelector(".player__4").style.color = "#7191A5";
+                document.querySelector(".player__1").style.color = "#FCFCFC";
+                document.querySelector(".player_1_score").style.color =
+                  "#FCFCFC";
+                document.querySelector(".player__2").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__3").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__4").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player_4_score").style.color =
+                  "#7191A5";
+              }
+              if (letter == "B") {
+                document.querySelector(".player__1").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__2").style.backgroundColor =
+                  "#FDA214";
+                document.querySelector(".player__1").style.color = "#7191A5";
+                document.querySelector(".player__2").style.color = "#FCFCFC";
+                document.querySelector(".player_2_score").style.color =
+                  "#FCFCFC";
+                document.querySelector(".player__3").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__4").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player_1_score").style.color =
+                  "#7191A5";
+              }
+              if (letter == "C") {
+                document.querySelector(".player__1").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__2").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__3").style.backgroundColor =
+                  "#FDA214";
+                document.querySelector(".player__2").style.color = "#7191A5";
+                document.querySelector(".player__3").style.color = "#FCFCFC";
+                document.querySelector(".player_2_score").style.color =
+                  "#FCFCFC";
+
+                document.querySelector(".player__4").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player_2_score").style.color =
+                  "#7191A5";
+              }
+              if (letter == "D") {
+                document.querySelector(".player__1").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__2").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__3").style.backgroundColor =
+                  "#BCCED9";
+                document.querySelector(".player__4").style.backgroundColor =
+                  "#FDA214";
+                document.querySelector(".player__3").style.color = "#7191A5";
+                document.querySelector(".player__4").style.color = "#FCFCFC";
+                document.querySelector(".player_4_score").style.color =
+                  "#FCFCFC";
+                document.querySelector(".player_3_score").style.color =
+                  "#7191A5";
+              }
             }
+
+            displayNextPlayer();
+
+            choice.length = 0;
           }
         }
       }
-    }, 100);
+    }
+    // }, 100);
   }
 
   if (GridSym == "ICON") {
@@ -302,6 +321,7 @@ function gm__play(event) {
     // console.log(event)
 
     const GSI = localStorage.getItem("GridSize");
+
     for (let i = 0; i < results.length; ++i) {
       const PoId = (results[i].poID = i);
       const imgPoId = (results[i].imgpoID = i);
@@ -311,10 +331,12 @@ function gm__play(event) {
           imgChoice.push(event.srcElement.childNodes[1]);
 
           if (imgChoice[0]) {
+            choice[0].style.backgroundColor = "#FDA214";
             imgChoice[0].style.visibility = "visible";
             event.srcElement.classList.add("clickOnce");
-
+            const OneOne = choice[0];
             if (imgChoice.length == 2) {
+              choice[1].style.backgroundColor = "#FDA214";
               imgChoice[1].classList.add("clickOnce");
               imgChoice[1].style.visibility = "visible";
               if (imgChoice[0].id !== imgChoice[1].id) {
@@ -323,6 +345,8 @@ function gm__play(event) {
                 setTimeout(() => {
                   imgChoiceOne.style.visibility = "hidden";
                   event.srcElement.childNodes[1].style.visibility = "hidden";
+                  OneOne.style.backgroundColor = "#304859";
+                  event.srcElement.style.backgroundColor = "#304859";
                   event.srcElement.classList.remove("clickOnce");
                 }, 300);
               }
@@ -333,18 +357,10 @@ function gm__play(event) {
                 setTimeout(() => {
                   imgChoiceOne.style.visibility = "visible";
                   event.srcElement.childNodes[1].style.visibility = "visible";
+                  event.srcElement.style.backgroundColor = "#BCCED9";
+                  OneOne.style.backgroundColor = "#BCCED9";
                 }, 300);
                 gameCount = gameCount + 1;
-                if (GSI == "FOUR") {
-                  if (gameCount == 8) {
-                    clearInterval(timer);
-                  }
-                }
-                if (GSI == "SIX") {
-                  if (gameCount == 18) {
-                    clearInterval(timer);
-                  }
-                }
               }
 
               if (moveCount % 1 == 0) {
@@ -376,9 +392,6 @@ function gm__play(event) {
                     letters.unshift(0);
                   }
                 }
-
-                console.log(letter);
-
                 if (players == "ply_4") {
                   if (letter == "C") {
                     if (imgChoice[0].id == imgChoice[1].id) {
@@ -441,52 +454,69 @@ function gm__play(event) {
                   ply_4_score;
 
                 if (letter == "A") {
-                  setTimeout(() => {
-                    document.querySelector(".player__1").style.backgroundColor =
-                      "aqua";
-                    document.querySelector(".player__2").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__3").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__4").style.backgroundColor =
-                      "white";
-                  }, 450);
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "#FDA214";
+                  document.querySelector(".player__4").style.color = "#7191A5";
+                  document.querySelector(".player__1").style.color = "#FCFCFC";
+                  document.querySelector(".player_1_score").style.color =
+                    "#FCFCFC";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player_4_score").style.color =
+                    "#7191A5";
                 }
                 if (letter == "B") {
-                  setTimeout(() => {
-                    document.querySelector(".player__1").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__2").style.backgroundColor =
-                      "aqua";
-                    document.querySelector(".player__3").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__4").style.backgroundColor =
-                      "white";
-                  }, 450);
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "#FDA214";
+                  document.querySelector(".player__1").style.color = "#7191A5";
+                  document.querySelector(".player__2").style.color = "#FCFCFC";
+                  document.querySelector(".player_2_score").style.color =
+                    "#FCFCFC";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player_1_score").style.color =
+                    "#7191A5";
                 }
                 if (letter == "C") {
-                  setTimeout(() => {
-                    document.querySelector(".player__1").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__2").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__3").style.backgroundColor =
-                      "aqua";
-                    document.querySelector(".player__4").style.backgroundColor =
-                      "white";
-                  }, 450);
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "#FDA214";
+                  document.querySelector(".player__2").style.color = "#7191A5";
+                  document.querySelector(".player__3").style.color = "#FCFCFC";
+                  document.querySelector(".player_2_score").style.color =
+                    "#FCFCFC";
+
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player_2_score").style.color =
+                    "#7191A5";
                 }
                 if (letter == "D") {
-                  setTimeout(() => {
-                    document.querySelector(".player__1").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__2").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__3").style.backgroundColor =
-                      "white";
-                    document.querySelector(".player__4").style.backgroundColor =
-                      "aqua";
-                  }, 450);
+                  document.querySelector(".player__1").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__2").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__3").style.backgroundColor =
+                    "#BCCED9";
+                  document.querySelector(".player__4").style.backgroundColor =
+                    "#FDA214";
+                  document.querySelector(".player__3").style.color = "#7191A5";
+                  document.querySelector(".player__4").style.color = "#FCFCFC";
+                  document.querySelector(".player_4_score").style.color =
+                    "#FCFCFC";
+                  document.querySelector(".player_3_score").style.color =
+                    "#7191A5";
                 }
               }
 
@@ -497,6 +527,167 @@ function gm__play(event) {
             }
           }
         }
+      }
+    }
+  }
+
+  const singleplayerMenu = document.querySelector(
+    ".endmenu__container--singleplayer"
+  );
+  const wrapper = document.querySelector("#endmenu__wrapper");
+  const players = localStorage.getItem("Players");
+  const multiMenu = document.querySelector(".endmenu__container--multiplayer");
+  const overTime = document.querySelector("#timer").innerHTML;
+  localStorage.setItem("endTime", overTime);
+  document.querySelector(".time_display").innerHTML =
+    localStorage.getItem("endTime");
+  document.querySelector(".moves_display").innerHTML = moveCount;
+
+  if (players == "ply_1") {
+    console.log(gameCount);
+    if (gameCount == 18) {
+      if (GSI == "SIX") {
+        setTimeout(() => {
+          singleplayerMenu.style.display = "flex";
+          wrapper.style.display = "flex";
+        }, 1000);
+      }
+    }
+
+    if (gameCount == 8) {
+      if (GSI == "FOUR") {
+        setTimeout(() => {
+          singleplayerMenu.style.display = "flex";
+          wrapper.style.display = "flex";
+        }, 1000);
+      }
+    }
+  }
+
+  if (players == "ply_2" || players == "ply_3" || players == "ply_4") {
+    if (GSI == "SIX") {
+      if (gameCount == 18) {
+        console.log("four18");
+        multiMenu.style.display = "flex";
+        wrapper.style.display = "flex";
+        singleplayerMenu.style.display = "none";
+      }
+    }
+    if (GSI == "FOUR") {
+      if (gameCount == 8) {
+        console.log("four");
+        multiMenu.style.display = "flex";
+        wrapper.style.display = "flex";
+        singleplayerMenu.style.display = "none";
+      }
+    }
+  }
+  const numbers = [ply_1_score, ply_2_score, ply_3_score, ply_4_score];
+  numbers.sort((a, b) => b - a);
+
+  if (players == "ply_3") {
+    document.querySelector(".player__rank__4").style.display = "none";
+  }
+  if (players == "ply_2") {
+    document.querySelector(".player__rank__3").style.display = "none";
+    document.querySelector(".player__rank__4").style.display = "none";
+  }
+
+  for (i = 0; i <= numbers.length; ++i) {
+    if (numbers[0] == numbers[i]) {
+      if (numbers[i] == ply_1_score) {
+        document.querySelector(".first_player").innerHTML = "player 1";
+        document.querySelector(".endmenu__header").innerHTML =
+          "player 1 wins!!";
+        document.querySelector(".first_player-pair").innerHTML =
+          ply_1_score + " Pairs";
+      }
+      if (numbers[i] == ply_2_score) {
+        document.querySelector(".first_player").innerHTML = "player 2";
+        document.querySelector(".endmenu__header").innerHTML =
+          "player 2 wins!!";
+        document.querySelector(".first_player-pair").innerHTML =
+          ply_2_score + " Pairs";
+      }
+      if (numbers[i] == ply_3_score) {
+        document.querySelector(".first_player").innerHTML = "player 3";
+        document.querySelector(".endmenu__header").innerHTML =
+          "player 3 wins!!";
+        document.querySelector(".first_player-pair").innerHTML =
+          ply_3_score + " Pairs";
+      }
+      if (numbers[i] == ply_4_score) {
+        document.querySelector(".first_player").innerHTML = "player 4";
+        document.querySelector(".endmenu__header").innerHTML =
+          "player 3 wins!!";
+        document.querySelector(".first_player-pair").innerHTML =
+          ply_4_score + " Pairs";
+      }
+    }
+    if (numbers[1] == numbers[i]) {
+      if (numbers[i] == ply_1_score) {
+        document.querySelector(".second_player").innerHTML = "player 1 ";
+        document.querySelector(".second_player-pair").innerHTML =
+          ply_1_score + " Pairs";
+      }
+      if (numbers[i] == ply_2_score) {
+        document.querySelector(".second_player").innerHTML = "player 2 ";
+        document.querySelector(".second_player-pair").innerHTML =
+          ply_2_score + " Pairs";
+      }
+      if (numbers[i] == ply_3_score) {
+        document.querySelector(".second_player").innerHTML = "player 3 ";
+        document.querySelector(".second_player-pair").innerHTML =
+          ply_3_score + " Pairs";
+      }
+      if (numbers[i] == ply_4_score) {
+        document.querySelector(".second_player").innerHTML = "player 4 ";
+        document.querySelector(".second_player-pair").innerHTML =
+          ply_4_score + " Pairs";
+      }
+    }
+    if (numbers[2] == numbers[i]) {
+      if (numbers[i] == ply_1_score) {
+        document.querySelector(".third_player").innerHTML = "player 1 ";
+        document.querySelector(".third_player-pair").innerHTML =
+          ply_1_score + " Pairs";
+      }
+      if (numbers[i] == ply_2_score) {
+        document.querySelector(".third_player").innerHTML = "player 2 ";
+        document.querySelector(".third_player-pair").innerHTML =
+          ply_2_score + " Pairs";
+      }
+      if (numbers[i] == ply_3_score) {
+        document.querySelector(".third_player").innerHTML = "player 3 ";
+        document.querySelector(".third_player-pair").innerHTML =
+          ply_3_score + " Pairs";
+      }
+      if (numbers[i] == ply_4_score) {
+        document.querySelector(".third_player").innerHTML = "player 4 ";
+        document.querySelector(".third_player-pair").innerHTML =
+          ply_4_score + " Pairs";
+      }
+    }
+    if (numbers[3] == numbers[i]) {
+      if (numbers[i] == ply_1_score) {
+        document.querySelector(".fourth_player").innerHTML = "player 1 ";
+        document.querySelector(".fourth_player-pair").innerHTML =
+          ply_1_score + " Pairs";
+      }
+      if (numbers[i] == ply_2_score) {
+        document.querySelector(".fourth_player").innerHTML = "player 2 ";
+        document.querySelector(".fourth_player-pair").innerHTML =
+          ply_2_score + " Pairs";
+      }
+      if (numbers[i] == ply_3_score) {
+        document.querySelector(".fourth_player").innerHTML = "player 3 ";
+        document.querySelector(".fourth_player-pair").innerHTML =
+          ply_3_score + " Pairs";
+      }
+      if (numbers[i] == ply_4_score) {
+        document.querySelector(".fourth_player").innerHTML = "player 4 ";
+        document.querySelector(".fourth_player-pair").innerHTML =
+          ply_4_score + " Pairs";
       }
     }
   }
@@ -537,6 +728,47 @@ function startData(event) {
   if (targetId === "players__4") {
     localStorage.setItem("Players", "ply_4");
   }
+
+  const GridSymbol = localStorage.getItem("GridSymbol");
+  if (GridSymbol == "NUM") {
+    document.querySelector(".num").style.backgroundColor = "#304859";
+    document.querySelector(".sym").style.backgroundColor = "#BCCED9";
+  } else if (GridSymbol == "ICON") {
+    document.querySelector(".num").style.backgroundColor = "#BCCED9";
+    document.querySelector(".sym").style.backgroundColor = "#304859";
+  }
+
+  const GridSize = localStorage.getItem("GridSize");
+  if (GridSize == "SIX") {
+    document.querySelector(".gridSix").style.backgroundColor = "#304859";
+    document.querySelector(".gridFour").style.backgroundColor = "#BCCED9";
+  } else if (GridSize == "FOUR") {
+    document.querySelector(".gridSix").style.backgroundColor = "#BCCED9";
+    document.querySelector(".gridFour").style.backgroundColor = "#304859";
+  }
+
+  const Players = localStorage.getItem("Players");
+  if (Players == "ply_1") {
+    document.querySelector("#players__1").style.backgroundColor = "#304859";
+    document.querySelector("#players__2").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__3").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__4").style.backgroundColor = "#BCCED9";
+  } else if (Players == "ply_2") {
+    document.querySelector("#players__1").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__2").style.backgroundColor = "#304859";
+    document.querySelector("#players__3").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__4").style.backgroundColor = "#BCCED9";
+  } else if (Players == "ply_3") {
+    document.querySelector("#players__1").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__2").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__3").style.backgroundColor = "#304859";
+    document.querySelector("#players__4").style.backgroundColor = "#BCCED9";
+  } else if (Players == "ply_4") {
+    document.querySelector("#players__1").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__2").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__3").style.backgroundColor = "#BCCED9";
+    document.querySelector("#players__4").style.backgroundColor = "#304859";
+  }
 }
 
 function startGame() {
@@ -546,23 +778,34 @@ function startGame() {
   gameBoard.style.display = "flex";
   const playerCount = document.querySelector(" .player__count");
   playerCount.style.display = "flex";
+  document.body.style.backgroundColor = "#FCFCFC";
 
   const GNI = localStorage.getItem("GridSymbol");
   const GSI = localStorage.getItem("GridSize");
 
+  if (GSI == "FOUR") {
+    document.querySelector(".gameBoard").style.width = "500px";
+    document.querySelector(".gameBoard").classList.add("gameBoardOne");
+    document.querySelector("#js_timer").style.width = "180px";
+    document.querySelector(".mover_container").style.width = "180px";
+    // document.querySelector(".tile").style.height = "110px";
+  }
+
+  function timeGiver() {
+    let sec = 0;
+    let min = 0;
+    const timer = setInterval(function updateTimer() {
+      seconds = sec % 60;
+      minutes = Math.floor(min / 60);
+      ele.innerHTML = minutes + ":" + seconds;
+
+      min++;
+      sec++;
+    }, 1000);
+  }
+
+  timeGiver();
   const players = localStorage.getItem("Players");
-  console.log(players);
-
-  let sec = 0;
-  let min = 0;
-  const timer = setInterval(function updateTimer() {
-    seconds = sec % 60;
-    minutes = Math.floor(min / 60);
-    ele.innerHTML = minutes + ":" + seconds;
-
-    min++;
-    sec++;
-  }, 1000);
 
   if (players == "ply_1") {
     playerCount.style.display = "none";
@@ -571,22 +814,21 @@ function startGame() {
     playerCount.style.display = "flex";
     document.querySelector(".player__3").style.display = "none";
     document.querySelector(".player__4").style.display = "none";
-    document.querySelector("#timer").style.display = "none";
-    document.querySelector(".moves").style.display = "none";
+    document.querySelector(".game_supplies").style.display = "none";
+    document.querySelector(".player__count").style.maxWidth = "500px";
     clearInterval(timer);
     letters.push("A", "B");
   }
   if (players == "ply_3") {
     document.querySelector(".player__4").style.display = "none";
-    document.querySelector("#timer").style.display = "none";
-    document.querySelector(".moves").style.display = "none";
+    document.querySelector(".game_supplies").style.display = "none";
+    document.querySelector(".player__count").style.maxWidth = "750px";
     clearInterval(timer);
     letters.push("A", "B", "C");
   }
   if (players == "ply_4") {
     playerCount.style.display = "flex";
-    document.querySelector("#timer").style.display = "none";
-    document.querySelector(".moves").style.display = "none";
+    document.querySelector(".game_supplies").style.display = "none";
     clearInterval(timer);
     letters.push("A", "B", "C", "D");
   }
@@ -618,6 +860,7 @@ function startGame() {
       return results, tile;
     }
   }
+
   if (GNI == "NUM") {
     if (GSI == "FOUR") {
       const numbers = OBJ8;
@@ -690,19 +933,4 @@ function startGame() {
       return results, tile_icon;
     }
   }
-}
-
-
-
-function findHighestNumber() {
-  numbers = [5, 6, 7, 8];
-  let highest = numbers[0];
-
-  for (let i = 1; i < numbers.length; i++) {
-    if (numbers[i] > highest) {
-      highest = numbers[i];
-    }
-  }
-
-  return highest;
 }

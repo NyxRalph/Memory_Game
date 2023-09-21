@@ -14,27 +14,30 @@
 
 
   <div class="menu__box">
-    <p>Numbers or Symbols</p>
-    <div class="numOrsym">
-      <div class="num gd_btn" id="Numbers">Numbers</div>
-      <div class="sym gd_btn" id="Icons">Symbols</div>
+    <div class="menu__container">
+      <p class="select_theme">Select Theme</p>
+      <div class="numOrsym">
+        <div class="num gd_btn" id="Numbers">Numbers</div>
+        <div class="sym gd_btn" id="Icons">Icons</div>
+      </div>
+      <p class="select_players">Number of Players</p>
+      <div class="player">
+        <div id="players__1" class="players">1</div>
+        <div id="players__2" class="players">2</div>
+        <div id="players__3" class="players">3</div>
+        <div id="players__4" class="players">4</div>
+      </div>
+
+      <p class="select_grid">Grid Size</p>
+      <div class="grid__size">
+
+        <div class="gridSix gd_btn" id="Six">6x6</div>
+        <div class="gridFour gd_btn" id="Four">4x4</div>
+      </div>
+
+
+      <div class="start__btn" onclick="startGame()">Start Game</div>
     </div>
-
-    <p>Grid Size</p>
-    <div class="grid__size">
-
-      <div class="gridSix gd_btn" id="Six">6X6</div>
-      <div class="gridFour gd_btn" id="Four">4X4</div>
-    </div>
-
-    <div class="player">
-      <div id="players__1" class="players">1</div>
-      <div id="players__2" class="players">2</div>
-      <div id="players__3" class="players">3</div>
-      <div id="players__4" class="players">4</div>
-    </div>
-
-    <div class="start__btn" onclick="startGame()">Start Game</div>
   </div>
 
 
@@ -42,12 +45,17 @@
   <div class="gameBoard">
     <div class="tiles">
     </div>
-    <div class="moves">
-    </div>
+    <div class="game_supplies">
+      <div class="mover_container">
+        <p class="moves_para">Moves</p>
+        <div class="moves">
+        </div>
+      </div>
+      <div id="js_timer">
+        <p class="timer_para">Time</p>
+        <div id="timer">
 
-    <div id="js_timer">
-      <div id="timer">
-
+        </div>
       </div>
     </div>
 
@@ -75,6 +83,72 @@
       <p class="player_4_score"></p>
     </div>
   </div>
+
+
+  <section id="endmenu__wrapper">
+    <div class="endMenu__background">
+      <div class="endmenu__container--multiplayer">
+        <h1 class="endmenu__header"></h1>
+        <p class="endmenu__para">Game over! Here are the results... </p>
+        <div class="player__ranks">
+          <div class="player__rank__1">
+            <p class="first_player"></p>
+            <p class="first_player-pair"></p>
+          </div>
+          <div class="player__rank__2">
+            <p class="second_player"></p>
+            <p class="second_player-pair"></p>
+          </div>
+          <div class="player__rank__3">
+            <p class="third_player"></p>
+            <p class="third_player-pair"></p>
+          </div>
+          <div class="player__rank__4">
+            <p class="fourth_player"></p>
+            <p class="fourth_player-pair"></p>
+          </div>
+        </div>
+        <div class="endmenu__buttons">
+          <div class="restart__btn" onclick="startGame()">
+            <link rel="stylesheet" href="index.html">Restart
+          </div>
+          <div class="setup_new_gm__btn">
+            <link rel="stylesheet" href="index.html">Setup New Game
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="endmenu__container--singleplayer">
+        <div class="endmenu__container-single">
+          <h1 class="endmenu__header-single">You did it!!</h1>
+          <div class="endmenu__para-single">Game Over! Here's how you got on...</div>
+          <div class="player__scores-single">
+            <div class="player__time">
+              <p class="player__time-para">Time Elapsed</p>
+              <p class="time_display"></p>
+            </div>
+            <div class="player__moves">
+              <p class="moves__taken-para">Moves Taken</p>
+              <p class="moves_display"></p>
+            </div>
+
+            <div class="endmenu__buttons">
+              <div class="restart__btn" onclick="startGame()">
+                <link rel="stylesheet" href="index.html">Restart
+              </div>
+              <div class="setup_new_gm__btn">
+                <link rel="stylesheet" href="index.html">Setup New Game
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </section>
 
 </body>
 <script src="./gm_play.js"></script>
