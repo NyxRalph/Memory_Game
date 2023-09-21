@@ -154,7 +154,6 @@ function gm__play(event) {
 
             if (choice[0].id == choice[1].id) {
               gameCount = gameCount + 1;
-              console.log(gameCount);
             }
 
             function displayNextPlayer() {
@@ -544,12 +543,12 @@ function gm__play(event) {
   document.querySelector(".moves_display").innerHTML = moveCount;
 
   if (players == "ply_1") {
-    console.log(gameCount);
     if (gameCount == 18) {
       if (GSI == "SIX") {
         setTimeout(() => {
           singleplayerMenu.style.display = "flex";
           wrapper.style.display = "flex";
+          multiMenu.style.display = "none";
         }, 1000);
       }
     }
@@ -559,6 +558,7 @@ function gm__play(event) {
         setTimeout(() => {
           singleplayerMenu.style.display = "flex";
           wrapper.style.display = "flex";
+          multiMenu.style.display = "none";
         }, 1000);
       }
     }
@@ -567,7 +567,6 @@ function gm__play(event) {
   if (players == "ply_2" || players == "ply_3" || players == "ply_4") {
     if (GSI == "SIX") {
       if (gameCount == 18) {
-        console.log("four18");
         multiMenu.style.display = "flex";
         wrapper.style.display = "flex";
         singleplayerMenu.style.display = "none";
@@ -575,13 +574,38 @@ function gm__play(event) {
     }
     if (GSI == "FOUR") {
       if (gameCount == 8) {
-        console.log("four");
         multiMenu.style.display = "flex";
         wrapper.style.display = "flex";
         singleplayerMenu.style.display = "none";
       }
     }
   }
+
+  const restart__btn = document.querySelectorAll(".restart__btn");
+  const setup = document.querySelectorAll(".setup_new_gm__btn");
+
+  restart__btn.forEach((restart) => {
+    restart.addEventListener("click", (event) => {
+      Restart(event);
+    });
+  });
+
+  setup.forEach((setup) => {
+    setup.addEventListener("click", (event) => {
+      Setup(event);
+    });
+  });
+
+  function Restart() {
+    location.reload();
+    setTimeout(() => {
+      startGame();
+    }, 1000);
+  }
+  function Setup() {
+    location.reload();
+  }
+
   const numbers = [ply_1_score, ply_2_score, ply_3_score, ply_4_score];
   numbers.sort((a, b) => b - a);
 
@@ -598,28 +622,28 @@ function gm__play(event) {
       if (numbers[i] == ply_1_score) {
         document.querySelector(".first_player").innerHTML = "player 1";
         document.querySelector(".endmenu__header").innerHTML =
-          "player 1 wins!!";
+          "Player 1 wins!!";
         document.querySelector(".first_player-pair").innerHTML =
           ply_1_score + " Pairs";
       }
       if (numbers[i] == ply_2_score) {
         document.querySelector(".first_player").innerHTML = "player 2";
         document.querySelector(".endmenu__header").innerHTML =
-          "player 2 wins!!";
+          "Player 2 wins!!";
         document.querySelector(".first_player-pair").innerHTML =
           ply_2_score + " Pairs";
       }
       if (numbers[i] == ply_3_score) {
         document.querySelector(".first_player").innerHTML = "player 3";
         document.querySelector(".endmenu__header").innerHTML =
-          "player 3 wins!!";
+          "Player 3 wins!!";
         document.querySelector(".first_player-pair").innerHTML =
           ply_3_score + " Pairs";
       }
       if (numbers[i] == ply_4_score) {
         document.querySelector(".first_player").innerHTML = "player 4";
         document.querySelector(".endmenu__header").innerHTML =
-          "player 3 wins!!";
+          "Player 4 wins!!";
         document.querySelector(".first_player-pair").innerHTML =
           ply_4_score + " Pairs";
       }

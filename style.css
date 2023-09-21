@@ -205,10 +205,22 @@ body{
      position: absolute;
 }
 .endmenu__container--multiplayer{
-    display: none;
-    background-color: lightgray;
-    border: 2px solid lightgray;
+    background-color: #FCFCFC;
+    border-radius: 20px;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 600px;
+    width: 100%;
+}
+.player__ranks{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 24px 0px ;
 }
 .player__rank__1,
 .player__rank__2,
@@ -254,6 +266,12 @@ border-radius: 25px ;
     font-size: 16px;
     font-weight: bold;
 }
+.endmenu__para{
+    text-align: center;
+    color: #7191A5;
+    font-size: 16px;
+    font-weight: bold;
+}
 .player__scores-single{
     display: flex;
     flex-direction: column;
@@ -272,10 +290,48 @@ margin: 7px 0px;
 width: 500px;
 border-radius: 10px;
 }
+.first_player,
+.second_player,
+.third_player,
+.fourth_player{
+    font-size: 18px;
+    margin: 0px 32px;
+    font-weight: bold;
+    color: #7191A5;
+}
+.first_player-pair,
+.second_player-pair,
+.third_player-pair,
+.fourth_player-pair{
+    font-size: 32px;
+    margin: 0px 32px;
+    font-weight: bold;
+    color: #304859;
+}
+
+
+
+
+.player__rank__1,
+.player__rank__2,
+.player__rank__3,
+.player__rank__4{
+    display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: #BCCED9;
+height: 70px;
+margin: 7px 0px;
+width: 500px;
+border-radius: 10px;
+}
 .endmenu__buttons{
-    margin: 14px 0px;
+    /* margin-top: 14px; */
+    margin-bottom: 24px;
+
     display: flex;
     justify-content: space-between;
+    max-width: 500px;
     width: 100%;
 }
 .restart__btn{
@@ -359,4 +415,8 @@ color: #304859;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.endmenu__header{
+    font-size: 32px;
+    margin: 32px;
 }
