@@ -715,6 +715,108 @@ function gm__play(event) {
       }
     }
   }
+
+// const body = document.querySelector("body")
+//   if(body.style.width == "425px"){
+//     for (i = 0; i <= numbers.length; ++i) {
+//       if (numbers[0] == numbers[i]) {
+//         if (numbers[i] == ply_1_score) {
+//           document.querySelector(".first_player").innerHTML = "P 1";
+//           document.querySelector(".endmenu__header").innerHTML =
+//             "Player 1 wins!!";
+//           document.querySelector(".first_player-pair").innerHTML =
+//             ply_1_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_2_score) {
+//           document.querySelector(".first_player").innerHTML = "P 2";
+//           document.querySelector(".endmenu__header").innerHTML =
+//             "Player 2 wins!!";
+//           document.querySelector(".first_player-pair").innerHTML =
+//             ply_2_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_3_score) {
+//           document.querySelector(".first_player").innerHTML = "P 3";
+//           document.querySelector(".endmenu__header").innerHTML =
+//             "Player 3 wins!!";
+//           document.querySelector(".first_player-pair").innerHTML =
+//             ply_3_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_4_score) {
+//           document.querySelector(".first_player").innerHTML = "P 4";
+//           document.querySelector(".endmenu__header").innerHTML =
+//             "Player 4 wins!!";
+//           document.querySelector(".first_player-pair").innerHTML =
+//             ply_4_score + " Pairs";
+//         }
+//       }
+//       if (numbers[1] == numbers[i]) {
+//         if (numbers[i] == ply_1_score) {
+//           document.querySelector(".second_player").innerHTML = "P 1 ";
+//           document.querySelector(".second_player-pair").innerHTML =
+//             ply_1_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_2_score) {
+//           document.querySelector(".second_player").innerHTML = "P 2 ";
+//           document.querySelector(".second_player-pair").innerHTML =
+//             ply_2_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_3_score) {
+//           document.querySelector(".second_player").innerHTML = "P 3 ";
+//           document.querySelector(".second_player-pair").innerHTML =
+//             ply_3_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_4_score) {
+//           document.querySelector(".second_player").innerHTML = "P 4 ";
+//           document.querySelector(".second_player-pair").innerHTML =
+//             ply_4_score + " Pairs";
+//         }
+//       }
+//       if (numbers[2] == numbers[i]) {
+//         if (numbers[i] == ply_1_score) {
+//           document.querySelector(".third_player").innerHTML = "P 1 ";
+//           document.querySelector(".third_player-pair").innerHTML =
+//             ply_1_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_2_score) {
+//           document.querySelector(".third_player").innerHTML = "P 2 ";
+//           document.querySelector(".third_player-pair").innerHTML =
+//             ply_2_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_3_score) {
+//           document.querySelector(".third_player").innerHTML = "P 3 ";
+//           document.querySelector(".third_player-pair").innerHTML =
+//             ply_3_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_4_score) {
+//           document.querySelector(".third_player").innerHTML = "P 4 ";
+//           document.querySelector(".third_player-pair").innerHTML =
+//             ply_4_score + " Pairs";
+//         }
+//       }
+//       if (numbers[3] == numbers[i]) {
+//         if (numbers[i] == ply_1_score) {
+//           document.querySelector(".fourth_player").innerHTML = "P 1 ";
+//           document.querySelector(".fourth_player-pair").innerHTML =
+//             ply_1_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_2_score) {
+//           document.querySelector(".fourth_player").innerHTML = "P 2 ";
+//           document.querySelector(".fourth_player-pair").innerHTML =
+//             ply_2_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_3_score) {
+//           document.querySelector(".fourth_player").innerHTML = "P 3 ";
+//           document.querySelector(".fourth_player-pair").innerHTML =
+//             ply_3_score + " Pairs";
+//         }
+//         if (numbers[i] == ply_4_score) {
+//           document.querySelector(".fourth_player").innerHTML = "P 4 ";
+//           document.querySelector(".fourth_player-pair").innerHTML =
+//             ply_4_score + " Pairs";
+//         }
+//       }
+//     }
+//   }
 }
 
 menuBoard = [Num, Icon, gridFour, gridSix, plys_1, plys_2, plys_3, plys_4];
